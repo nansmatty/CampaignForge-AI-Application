@@ -1,0 +1,12 @@
+{
+  "name": "campaign-forge",
+  "version": "1.0.0",
+  "description": "A all in one application for campaign and marketing where you can research and generate marketing campaigns.",
+  "license": "ISC",
+  "author": "Narayan Maity",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
