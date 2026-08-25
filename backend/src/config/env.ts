@@ -4,8 +4,8 @@ const envSchema = z.object({
 	NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 	PORT: z.coerce.number().default(5241),
 
-	DATABASE_URL: z.string().min(1, 'Connection to the database url string is required'),
-	DIRECT_URL: z.string().min(1, 'Direct connection to the database url string is required for migrations'),
+	DATABASE_URL: z.url('DATABASE_URL must be a valid URL'),
+	DIRECT_URL: z.url('DIRECT_URL must be a valid URL'),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
