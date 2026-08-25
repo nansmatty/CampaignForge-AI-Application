@@ -1,3 +1,5 @@
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+
 export class AppError extends Error {
 	statusCode: number;
 	isOperational: boolean;
@@ -9,3 +11,9 @@ export class AppError extends Error {
 		Error.captureStackTrace(this, this.constructor);
 	}
 }
+
+export const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>): RequestHandler => {
+	return (req, res, next) => {
+		Promise.resolve(fn(req, res, next)).catch(next);
+	};
+};
