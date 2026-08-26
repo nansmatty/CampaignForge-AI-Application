@@ -5,7 +5,6 @@ const envSchema = z.object({
 	PORT: z.coerce.number().default(5241),
 
 	DATABASE_URL: z.url({ error: 'DATABASE_URL must be a valid PostgreSQL URL' }),
-	DIRECT_URL: z.url({ error: 'DIRECT_URL must be a valid PostgreSQL URL' }),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
