@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { env } from './config/env';
 import app from './app';
 import logger from './utils/logger';
-import { client } from './db';
+import { closeDB, connectDB } from './db';
 
 const PORT = env.PORT || 5241;
 
@@ -15,7 +15,7 @@ let server: any;
 
 const startServer = async () => {
 	try {
-		await client`SELECT 1`;
+		await connectDB();
 
 		server = app.listen(PORT, () => {
 			logger.info(`Server is running on port ${PORT}`);
@@ -39,8 +39,22 @@ const startServer = async () => {
 		process.on('SIGTERM', () => {
 			logger.info('SIGTERM signal received: Shutting down HTTP server...');
 			if (server) {
-				server.close(() => {
-					logger.info('HTTP server closed');
+				server.close(async () => {
+					logger.info('HTTP server closed. SIGTERM received');
+					await closeDB();
+					process.exit(0);
+				});
+			}
+		});
+
+		// Graceful shutdown on SIGINT (e.g., Ctrl+C)
+		process.on('SIGINT', () => {
+			logger.info('SIGINT signal received: Shutting down HTTP server...');
+			if (server) {
+				server.close(async () => {
+					logger.info('HTTP server closed. SIGINT received');
+					await closeDB();
+					process.exit(0);
 				});
 			}
 		});
