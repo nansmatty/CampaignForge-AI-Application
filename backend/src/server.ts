@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { env } from './config/env';
 import app from './app';
 import logger from './utils/logger';
+import { client } from './db';
 
 const PORT = env.PORT || 5241;
 
@@ -14,6 +15,8 @@ let server: any;
 
 const startServer = async () => {
 	try {
+		await client`SELECT 1`;
+
 		server = app.listen(PORT, () => {
 			logger.info(`Server is running on port ${PORT}`);
 			logger.info(`Environment: ${env.NODE_ENV}`);
