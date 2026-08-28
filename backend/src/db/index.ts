@@ -7,11 +7,11 @@ const client = postgres(env.DATABASE_URL, {
 	prepare: false,
 
 	// connection pool
-	max: 10, // maximum number of connections in the pool
+	max: env.DB_POOL_MAX, // maximum number of connections in the pool
 
 	// connection lifecycle
-	connect_timeout: 20, // time in seconds to wait for a connection to be established before timing out
-	idle_timeout: 30, // time in seconds before an idle connection is closed
+	connect_timeout: env.DB_CONNECT_TIMEOUT, // time in seconds to wait for a connection to be established before timing out
+	idle_timeout: env.DB_IDLE_TIMEOUT, // time in seconds before an idle connection is closed
 	max_lifetime: 60 * 30, // maximum time in seconds a connection can live before being closed
 });
 
