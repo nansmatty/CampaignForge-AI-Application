@@ -8,6 +8,7 @@ import { Server } from 'node:http';
 const PORT = env.PORT || 5241;
 
 let server: Server | undefined;
+let isShuttingDown: boolean = false;
 
 process.on('uncaughtException', async (err: Error) => {
 	logger.error('Uncaught Exception:', { message: err.message, stack: err.stack });
@@ -45,6 +46,9 @@ const startServer = async () => {
 };
 
 async function shutdown(reason: string, exitCode: number = 0) {
+	if (isShuttingDown) return;
+	isShuttingDown = true;
+
 	logger.info(`Shutdown initiated. Reason: ${reason}`);
 	if (server) {
 		server.close(async () => {
