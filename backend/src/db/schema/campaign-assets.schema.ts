@@ -1,9 +1,15 @@
 import { pgTable, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { assets } from './assets.schema';
+import { campaigns } from './campaign.schema';
 
 export const campaignAssets = pgTable('campaign_assets', {
-	campaign_id: uuid('campaign_id').notNull(),
+	campaignId: uuid('campaign_id')
+		.notNull()
+		.references(() => campaigns.id, { onDelete: 'cascade' }),
 
-	asset_id: uuid('asset_id').notNull(),
+	assetId: uuid('asset_id')
+		.notNull()
+		.references(() => assets.id, { onDelete: 'cascade' }),
 
-	created_at: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
