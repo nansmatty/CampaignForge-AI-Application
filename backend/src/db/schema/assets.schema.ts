@@ -1,13 +1,15 @@
-import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const assets = pgTable('assets', {
 	id: uuid('id').defaultRandom().primaryKey(),
 
-	storage_key: varchar('storage_key', { length: 255 }).notNull(),
+	type: varchar('type', { length: 50 }).notNull(),
 
-	original_name: varchar('original_name', { length: 255 }).notNull(),
+	storageKey: text('storage_key').notNull(),
 
-	mime_type: varchar('mime_type', { length: 255 }).notNull(),
+	originalName: varchar('original_name', { length: 255 }).notNull(),
 
-	created_at: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+	mimeType: varchar('mime_type', { length: 255 }).notNull(),
+
+	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
