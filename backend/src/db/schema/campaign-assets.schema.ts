@@ -1,4 +1,4 @@
-import { index, pgTable, primaryKey, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { index, pgTable, primaryKey, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 import { assets } from './assets.schema';
 import { campaigns } from './campaign.schema';
 
@@ -12,6 +12,8 @@ export const campaignAssets = pgTable(
 		assetId: uuid('asset_id')
 			.notNull()
 			.references(() => assets.id, { onDelete: 'cascade' }),
+
+		role: varchar('role', { length: 50 }),
 
 		createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 	},
