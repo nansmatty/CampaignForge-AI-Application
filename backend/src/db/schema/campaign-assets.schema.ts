@@ -21,6 +21,6 @@ export const campaignAssets = pgTable(
 			columns: [table.campaignId, table.assetId],
 		}),
 
-		index('campaign_assets_campaign_id_idx').on(table.assetId),
+		index('campaign_assets_asset_id_idx').on(table.assetId),
 	],
 );
