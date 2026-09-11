@@ -1,4 +1,4 @@
-import { varchar, text, uuid, pgTable, timestamp } from 'drizzle-orm/pg-core';
+import { varchar, text, uuid, pgTable, timestamp, boolean } from 'drizzle-orm/pg-core';
 
 export const campaigns = pgTable('campaigns', {
 	id: uuid('id').defaultRandom().primaryKey(),
@@ -11,11 +11,13 @@ export const campaigns = pgTable('campaigns', {
 
 	targetAudience: text('target_audience'),
 
+	useReferenceAssets: boolean('use_reference_assets').notNull().default(false),
+
 	status: varchar('status', { length: 50 }).notNull().default('draft'),
 
-	created_at: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 
-	updated_at: timestamp('updated_at', { withTimezone: true })
+	updatedAt: timestamp('updated_at', { withTimezone: true })
 		.defaultNow()
 		.notNull()
 		.$onUpdate(() => new Date()),
