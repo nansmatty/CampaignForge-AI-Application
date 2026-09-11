@@ -9,7 +9,9 @@
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only src/server.ts",
 		"build": "tsc",
-		"start": "node dist/server.js"
+		"start": "node dist/server.js",
+		"db:generate": "npx drizzle-kit generate --config=src/db/drizzle.config.ts",
+		"db:migrate": "npx drizzle-kit migrate --config=src/db/drizzle.config.ts"
 	},
 	"dependencies": {
 		"dotenv": "^17.4.2",
