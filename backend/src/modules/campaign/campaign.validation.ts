@@ -7,3 +7,5 @@ export const createCampaignSchema = z.object({
 	targetAudience: z.string().trim().min(1).optional(),
 	useReferenceAssets: z.boolean().optional(),
 });
+
+export type CreateCampaignInput = z.infer<typeof createCampaignSchema>;
