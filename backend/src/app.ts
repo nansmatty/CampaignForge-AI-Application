@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { notFoundHandler } from './middlewares/not-found-middleware';
 import { errorHandler } from './middlewares/error-middleware';
 import { checkDBHealth } from './db';
+import campaignRoutes from './modules/campaign/campaign.routes';
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get('/health', async (_req, res) => {
 		database: dbHealth ? 'connected' : 'disconnected',
 	});
 });
+
+app.use('/api/campaign', campaignRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
