@@ -1,6 +1,7 @@
 import { CreateCampaignInput } from './campaign.validation';
-import * as campaignRepos from './campaign.repository';
+import { createCampaignRepo, type NewCampaign } from './campaign.repository';
 
-export async function createCampaign(input: CreateCampaignInput) {
-	return campaignRepos.createCampaign(input);
+export async function createCampaignService(input: CreateCampaignInput) {
+	const newCampaign: NewCampaign = { ...input, status: 'draft' };
+	return createCampaignRepo(newCampaign);
 }
