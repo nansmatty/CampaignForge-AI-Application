@@ -3,6 +3,6 @@ import { createCampaignController } from './campaign.controllers';
 
 const router = Router();
 
-router.post('/create', createCampaignController);
+router.post('/', createCampaignController);
 
 export default router;
