@@ -25,7 +25,7 @@ app.get('/health', async (_req, res) => {
 	});
 });
 
-app.use('/api/campaign', campaignRoutes);
+app.use('/api/v1/campaign', campaignRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
